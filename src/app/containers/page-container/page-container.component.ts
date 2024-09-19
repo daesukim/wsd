@@ -1,7 +1,11 @@
-import { Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, inject, ViewChild, ViewContainerRef } from '@angular/core';
 import { ContentfulService } from '../../services/contentful.service';
 import { ActivatedRoute } from '@angular/router';
 import { ContentTypeService } from '../../services/content-type.service';
+import { Entry } from 'contentful';
+import { PageComponent } from '../../model/page-model';
+import { HomePageComponent } from '../home-page/home-page.component';
+import { ContentPageComponent } from '../content-page/content-page.component';
 
 @Component({
   selector: 'app-page-container',
@@ -11,7 +15,8 @@ import { ContentTypeService } from '../../services/content-type.service';
   styleUrl: './page-container.component.scss'
 })
 export class PageContainerComponent {
-  @ViewChild('pageHost') pageHost!: ViewContainerRef;
+  pageHost = inject(ViewContainerRef);
+  page: void | Entry<any> | null = null;
   contentType: string = '';
   slug: string | null = null;
 
@@ -26,12 +31,26 @@ export class PageContainerComponent {
   productChanged(){
     if(this.contentType === 'homepage'){
       this.loadHomePageComponent();
-    }else{
-      console.log('this is not a homepage');
+    }else if(this.contentType === 'contentPage'){
+      this.loadContentPageComponent();
     }
   }
 
   loadHomePageComponent(){
-  
+    this.contentfulService.getHomePageBySlug('home')
+    .then(pageData => {
+      this.page = pageData;
+      this.pageHost.clear();
+      this.pageHost.createComponent<PageComponent>(HomePageComponent);
+    });
+  }
+
+  loadContentPageComponent(){
+    this.contentfulService.getContentPageBySlug('wsd-content-page')
+    .then(pageData => {
+      this.page = pageData;
+      this.pageHost.clear();
+      this.pageHost.createComponent<PageComponent>(ContentPageComponent);
+    });
   }
 }
