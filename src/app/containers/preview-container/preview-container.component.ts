@@ -1,21 +1,21 @@
 import { Component, inject, ViewContainerRef } from '@angular/core';
-import { ContentfulService } from '../../services/contentful.service';
 import { ActivatedRoute } from '@angular/router';
-import { ContentTypeService } from '../../services/content-type.service';
 import { Entry } from 'contentful';
+import { TypeHomePageV1 } from '../../entity/contentful-types';
 import { PageComponent } from '../../model/page-model';
-import { HomePageComponent } from '../home-page/home-page.component';
+import { ContentTypeService } from '../../services/content-type.service';
+import { ContentfulService } from '../../services/contentful.service';
 import { ContentPageComponent } from '../content-page/content-page.component';
-import { TypeContentPageV1, TypeHomePageV1 } from '../../entity/contentful-types';
+import { HomePageComponent } from '../home-page/home-page.component';
 
 @Component({
-  selector: 'app-page-container',
+  selector: 'app-preview-container',
   standalone: true,
   imports: [],
-  templateUrl: './page-container.component.html',
-  styleUrl: './page-container.component.scss',
+  templateUrl: './preview-container.component.html',
+  styleUrl: './preview-container.component.scss'
 })
-export class PageContainerComponent {
+export class PreviewContainerComponent {
   // Injections
   private pageContainer = inject(ViewContainerRef);
   private contentTypeService = inject(ContentTypeService);
@@ -43,7 +43,7 @@ export class PageContainerComponent {
   }
 
   loadHomePageComponent() {
-    this.contentfulService.getHomePageBySlug('home').then((pageData) => {
+    this.contentfulService.getHomePageBySlug('home', true).then((pageData) => {
       this.page = pageData;
       this.pageContainer.clear();
       const componentRef = this.pageContainer.createComponent<PageComponent>(HomePageComponent);
@@ -53,7 +53,7 @@ export class PageContainerComponent {
 
   loadContentPageComponent() {
     this.contentfulService
-      .getContentPageBySlug('content-page')
+      .getContentPageBySlug('content-page', true)
       .then((pageData) => {
         this.page = pageData;
         this.pageContainer.clear();
