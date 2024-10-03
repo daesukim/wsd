@@ -7,11 +7,12 @@ import { PageComponent } from '../../model/page-model';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { ContentPageComponent } from '../content-page/content-page.component';
 import { TypeContentPageV1, TypeHomePageV1 } from '../../entity/contentful-types';
+import { NavComponent } from "../../components/nav/nav.component";
 
 @Component({
   selector: 'app-page-container',
   standalone: true,
-  imports: [],
+  imports: [NavComponent],
   templateUrl: './page-container.component.html',
   styleUrl: './page-container.component.scss',
 })

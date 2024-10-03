@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+    --white : #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+  
+body {
+    margin: 0;
+    position: relative;
+    overflow-x: hidden;
+    padding: 0px 0px 0px 0px;
+    font-family: "DM Sans", sans-serif;
+}
+  
+main {
+    // height: 100%;
+    overflow-x: clip;
+}
+  
+section {
+    position: relative;
+}
+  
+.container {
+    max-width: 1070px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 992px) {
+    body {
+        // margin-top: 1rem;
+    }
+}
+

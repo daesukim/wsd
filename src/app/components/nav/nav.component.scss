@@ -1,0 +1,33 @@
+.navbar .container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1120px;
+}
+
+.navbar-brand{
+    margin: 0;
+}
+
+.navbar-collapse{
+    flex-grow: 0;
+}
+
+.login{
+    width: 120px;
+    border: 1px var(--white) solid;
+    border-radius: 30px;
+    font-size: 16px;
+    text-decoration: none;
+    color: var(--white);
+    text-align: center;
+}
+
+nav{
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 991px) {
+    .login{
+        display: none;
+    }
+}

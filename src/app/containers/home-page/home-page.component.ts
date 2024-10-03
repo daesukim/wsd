@@ -4,11 +4,13 @@ import { TypeHomePageV1, TypeMetadataV1 } from '../../entity/contentful-types';
 import { Meta, Title } from '@angular/platform-browser';
 import { MetaType } from '../../model/meta-model';
 import { Entry } from 'contentful';
+import { HeroComponent } from "../../components/hero/hero.component";
+import { NavComponent } from "../../components/nav/nav.component";
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [],
+  imports: [HeroComponent, NavComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
