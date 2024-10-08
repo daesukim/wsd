@@ -26,10 +26,19 @@
 nav{
     justify-content: space-between;
     border-bottom: 1px #5a6269 solid;
+    position: sticky;
 }
 
 @media only screen and (max-width: 991px) {
     .login{
         display: none;
     }
+}
+
+.fixed_top{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
 }

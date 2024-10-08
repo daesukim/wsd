@@ -36,7 +36,7 @@ section {
 
 /// CARAUSEL
 .carousel{
-    height: 100%;
+    height: 100vh;
 }
 
 .carousel-inner{
@@ -60,3 +60,4 @@ section {
 .carousel-inner:hover img{
     opacity: 0.5;
 }
+
