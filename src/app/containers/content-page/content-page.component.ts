@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { PageComponent } from '../../model/page-model';
 import { TypeHomePageV1 } from '../../entity/contentful-types';
+import { NavComponent } from "../../components/nav/nav.component";
 
 @Component({
   selector: 'app-content-page',
   standalone: true,
-  imports: [],
+  imports: [NavComponent],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })

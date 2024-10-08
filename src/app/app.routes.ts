@@ -18,7 +18,7 @@ export const routes: Routes = [
         canActivate: [resolveContentGuard]
     },
     {
-        path: 'content',
+        path: 'content/about',
         component: PageContainerComponent,
         data: {
             contentType: 'contentPage'
