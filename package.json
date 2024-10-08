@@ -24,6 +24,7 @@
     "@contentful/rich-text-html-renderer": "^16.6.10",
     "@ng-bootstrap/ng-bootstrap": "^17.0.1",
     "@popperjs/core": "^2.11.8",
+    "bezier-easing": "^2.1.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "contentful": "^10.15.1",
