@@ -8,8 +8,14 @@
 				<h3>First slide label</h3>
 				<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 				<div class="button_wrapper">
-					<button> About Us </button>
-					<button> Contact Us </button>
+					<button (mousemove)="mouseEnter($event)">
+						About Us
+						<div #tracker class="tracker"></div>
+					</button>
+					<button #button (mousemove)="mouseEnter($event)">
+						Contact Us
+						<div #tracker class="tracker"></div>
+					</button>
 				</div>
 			</div>
 		</ng-template>

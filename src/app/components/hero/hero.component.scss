@@ -20,6 +20,7 @@ img {
 }
 
 button{
+    position: relative;
     width: fit-content;
     padding: 12px 20px;
     border-radius: 20px;
@@ -30,5 +31,21 @@ button{
     word-wrap: break-word;
     border: 2px solid transparent;
     transition: all 0.3s ease;
-    background-color: rgb(133, 133, 245);
+    background-color: rgb(221, 221, 247);
+}
+
+button:hover{
+    background-color: rgb(253, 255, 230);
+}
+
+.tracker {
+    position: absolute;
+	width: 10px;
+	height: 10px;
+    left: 0;
+    top: 0;
+	background: red;
+	border-radius: 1000px;
+	transform: translate(calc(-50% + 200px * var(--x)), calc(-50% + 200px * var(--y)));
+    transition: transform 0.1s;
 }
