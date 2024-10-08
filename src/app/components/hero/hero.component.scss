@@ -4,10 +4,14 @@
 }
 
 .carousel-caption{
-    display: block;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    align-items: center;
 }
 
 
@@ -38,17 +42,5 @@ button{
 }
 
 button:hover{
-    background-color: rgb(253, 255, 230);
-}
-
-.tracker {
-    position: absolute;
-	width: 10px;
-	height: 10px;
-    left: 0;
-    top: 0;
-	background: red;
-	border-radius: 1000px;
-	transform: translate(calc(-50% + 200px * var(--x)), calc(-50% + 200px * var(--y)));
-    transition: transform 0.1s;
+    background-color: rgb(186, 185, 255);
 }
