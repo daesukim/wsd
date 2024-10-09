@@ -312,7 +312,7 @@ export const def: Map<String, any> = new Map([
       {
         id: "slide5",
         top: 6100,
-        bottom: 9000,
+        bottom: 7100,
         topStyle: {
           opacity: 0,
         },

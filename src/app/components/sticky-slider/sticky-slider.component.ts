@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { def } from '../../data/sticky_slider_data';
 
 @Component({
@@ -9,51 +9,59 @@ import { def } from '../../data/sticky_slider_data';
   styleUrl: './sticky-slider.component.scss',
   host: {
     '(window:scroll)' : 'onScroll()'
-  }
+  },
+  encapsulation: ViewEncapsulation.ShadowDom
 })
-export class StickySliderComponent implements AfterViewChecked, OnInit{
+export class StickySliderComponent implements OnInit, AfterViewInit{
   readonly animation_definition = def;
-  elements: {[key: string]: HTMLElement | undefined} | null = null;
+  elements!: {[key: string]: HTMLElement};
   enabled = new Map();
   disabled = new Map();
 
   // VIEW CHILD
-  @ViewChild('sticky_container') sticky_container?:ElementRef<HTMLElement>;
-  @ViewChild('scroll_down') scroll_down?:ElementRef<HTMLElement>;
-  @ViewChild('moving_background') moving_background?:ElementRef<HTMLElement>;
-  @ViewChild('slide1') slide1?:ElementRef<HTMLElement>;
-  @ViewChild('slide2') slide2?:ElementRef<HTMLElement>;
-  @ViewChild('slide3') slide3?:ElementRef<HTMLElement>;
-  @ViewChild('slide4') slide4?:ElementRef<HTMLElement>;
-  @ViewChild('slide5') slide5?:ElementRef<HTMLElement>;
+  @ViewChild('sticky_container') sticky_container!:ElementRef<HTMLElement>;
+  @ViewChild('scroll_down') scroll_down!:ElementRef<HTMLElement>;
+  @ViewChild('moving_background') moving_background!:ElementRef<HTMLElement>;
+  @ViewChild('slide1') slide1!:ElementRef<HTMLElement>;
+  @ViewChild('slide2') slide2!:ElementRef<HTMLElement>;
+  @ViewChild('slide3') slide3!:ElementRef<HTMLElement>;
+  @ViewChild('slide4') slide4!:ElementRef<HTMLElement>;
+  @ViewChild('slide5') slide5!:ElementRef<HTMLElement>;
 
   ngOnInit(): void {}
 
-  ngAfterViewChecked(): void {
+  ngAfterViewInit(): void {
     this.elements = {
-      "sticky-container": this.sticky_container?.nativeElement,
-      "scroll-down": this.scroll_down?.nativeElement,
+      "sticky-container": this.sticky_container.nativeElement,
+      "scroll-down": this.scroll_down.nativeElement,
       "moving-background": this.moving_background?.nativeElement,
-      slide1: this.slide1?.nativeElement,
-      slide2: this.slide2?.nativeElement,
-      slide3: this.slide3?.nativeElement,
-      slide4: this.slide4?.nativeElement,
-      slide5: this.slide5?.nativeElement,
+      slide1: this.slide1.nativeElement,
+      slide2: this.slide2.nativeElement,
+      slide3: this.slide3.nativeElement,
+      slide4: this.slide4.nativeElement,
+      slide5: this.slide5.nativeElement,
     }
     this.initAnimation();
   }
 
-  initAnimation() {
-    // Sticky Container Height
-    const stickyNativeElement = this.elements?.['sticky-container'];
-    if(stickyNativeElement){
-      stickyNativeElement.style.height = `7100px`;
+  initAnimation():void {
+    let container_height = 0;
+
+    // Set height dynamically. Height depends on the bottom field in the last item of animation_definition
+    if(this.elements){
+      const lastElementKey:string = Object.keys(this.elements)[Object.keys(this.elements).length - 1];
+      container_height = this.animation_definition.get(lastElementKey)?.bottom;
     }
-  
+
+    const stickyNativeElement = this.elements['sticky-container'];
+    stickyNativeElement.style.height = `${container_height}px`;
+    
+    // add every HTML elements to disabled Map
     this.animation_definition.forEach((obj, id) => {
       this.disabled.set(id, obj);
     });
-  
+    
+    // apply initial style
     this.disabled.forEach((obj, id) => {
       Object.keys(obj.topStyle).forEach((styleName) => {
         const pushValue:number = obj.topStyle[styleName];
@@ -63,7 +71,7 @@ export class StickySliderComponent implements AfterViewChecked, OnInit{
     });
   }
 
-  applyStyle(element:HTMLElement, styleName: string, value:number) {
+  applyStyle(element:HTMLElement, styleName: string, value:number):void {
     if (styleName === "translateY") {
       element.style.transform = `translateY(${value}px)`;
       return;
@@ -74,12 +82,18 @@ export class StickySliderComponent implements AfterViewChecked, OnInit{
       return;
     }
 
+    if (styleName === "opacity"){
+      element.style.opacity = value.toString();
+      console.log(element.style.opacity)
+      return;
+    }
+
     else{
-      element.style[styleName as any] = `'${value}'`;
+      console.log('Some styles have not been applied');
     }
   }
 
-  onScroll(){
+  onScroll():void{
     const scrollTop = window.scrollY || window.pageYOffset;
     const currentPos = scrollTop + window.innerHeight / 2;
 
@@ -110,25 +124,23 @@ export class StickySliderComponent implements AfterViewChecked, OnInit{
           });
         }
   
-        // 리스트에서 삭제하고 disabled로 옮김.
         this.disabled.set(id, obj);
         this.elements?.[id]?.classList.remove("enabled");
         this.elements?.[id]?.classList.add("disabled");
         this.enabled.delete(id);
       }
-  
-      // enable 순회중, 범위 내부에 제대로 있다면 각 애니메이션 적용시키기.
+
       else {
         this.applyAnimations(currentPos, id);
       }
     });
   }
 
-  isAmong(num: number, top: number, bottom: number):Boolean {
+  isAmong(num: number, top: number, bottom: number):boolean {
     return num >= top && num <= bottom;
   }
 
-  applyAnimations(currentPos:number, id:string) {
+  applyAnimations(currentPos:number, id:string):void {
     const animations = this.animation_definition.get(id)?.animations;
     if (!animations) {
       return;
@@ -137,12 +149,11 @@ export class StickySliderComponent implements AfterViewChecked, OnInit{
     animations.forEach((animation:any) => {
       const { top: a_top, bottom: a_bottom, easing, styles } = animation;
       const isIn = this.isAmong(currentPos, a_top, a_bottom);
-      // 만약 애니메이션이 새롭게 들어갈 때 혹은 나갈때 enabled 설정
+
       if (isIn && !animation.enabled) {
         animation.enabled = true;
       }
   
-      // 만약 애니메이션 범위 밖에 있다면 enabled 해제하면서 스타일 초기화
       else if (!isIn && animation.enabled) {
         if (currentPos <= a_top) {
           this.applyStyles(id, styles, 0);
@@ -152,7 +163,6 @@ export class StickySliderComponent implements AfterViewChecked, OnInit{
         animation.enabled = false;
       }
   
-      // 애니메이션이 enabled 라면, 애니메이션 적용.
       if (animation.enabled) {
         const rate = easing((currentPos - a_top) / (a_bottom - a_top));
         this.applyStyles(id, styles, rate);
@@ -160,7 +170,7 @@ export class StickySliderComponent implements AfterViewChecked, OnInit{
     });
   }
 
-  applyStyles(id: string, styles:any, rate: number) {
+  applyStyles(id: string, styles:any, rate: number):void {
     styles.forEach((style:any) => {
       const { name, topValue, bottomValue } = style;
       const value = this.getPoint(topValue, bottomValue, rate);
@@ -169,7 +179,7 @@ export class StickySliderComponent implements AfterViewChecked, OnInit{
     });
   }
 
-  getPoint(top: number, bottom: number, rate: number) {
+  getPoint(top: number, bottom: number, rate: number):number {
     return top + (bottom - top) * rate;
   }
 }
