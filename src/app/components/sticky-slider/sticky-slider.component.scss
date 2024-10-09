@@ -91,5 +91,23 @@
 
 
 .sticky-container{
-  background-color: #212529;
+  // background-color: #212529;
+  background-color: #a5a5a5;
+  position: relative;
+  margin-top: 100vh;
+}
+
+.some_content{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: lightblue;
+  z-index: -1;
+}
+
+video{
+  width: 100vw;
+  height: 100vh;
 }
