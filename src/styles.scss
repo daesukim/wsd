@@ -2,6 +2,22 @@
     --white : #ffffff;
 }
 
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+::-webkit-scrollbar-track {
+    background: #212529;
+    border-left: 1px solid black;
+}
+
+::-webkit-scrollbar-thumb {
+background: #629584;
+}
+::-webkit-scrollbar-thumb:hover {
+background: #496d60;
+}
+
 * {
     box-sizing: border-box;
 }
