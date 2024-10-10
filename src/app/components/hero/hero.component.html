@@ -1,36 +1,34 @@
-@if (images) {
-	<ngb-carousel [pauseOnHover]="true">
-		<ng-template ngbSlide>
-			<div class="picsum-img-wrapper">
-				<img [src]="images[0]" alt="Random first slide" />
+<ngb-carousel [pauseOnHover]="true">
+	<ng-template ngbSlide>
+		<div class="picsum-img-wrapper">
+			<img src="assets/grass_lazy.jpg" data-src="assets/grass.jpg" alt="picture of grass" (load)="onLoad(image1)" #image1 />
+		</div>
+		<div class="carousel-caption">
+			<h3>First slide label</h3>
+			<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+			<br>
+			<div class="button_wrapper">
+				<button>About Us</button>
+				<button>Contact Us</button>
 			</div>
-			<div class="carousel-caption">
-				<h3>First slide label</h3>
-				<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-				<br>
-				<div class="button_wrapper">
-					<button>About Us</button>
-					<button>Contact Us</button>
-				</div>
-			</div>
-		</ng-template>
-		<ng-template ngbSlide>
-			<div class="picsum-img-wrapper">
-				<img [src]="images[1]" alt="Random second slide" />
-			</div>
-			<div class="carousel-caption">
-				<h3>Second slide label</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			</div>
-		</ng-template>
-		<ng-template ngbSlide>
-			<div class="picsum-img-wrapper">
-				<img [src]="images[2]" alt="Random third slide" />
-			</div>
-			<div class="carousel-caption">
-				<h3>Third slide label</h3>
-				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-			</div>
-		</ng-template>
-	</ngb-carousel>
-}
+		</div>
+	</ng-template>
+	<ng-template ngbSlide>
+		<div class="picsum-img-wrapper">
+			<img src="assets/trees_lazy.jpg" data-src="assets/trees.jpg" alt="picture of tree" (load)="onLoad(image2)" #image2 />
+		</div>
+		<div class="carousel-caption">
+			<h3>Second slide label</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		</div>
+	</ng-template>
+	<ng-template ngbSlide>
+		<div class="picsum-img-wrapper">
+			<img src="assets/green_lazy.jpg" data-src="assets/green.jpg" alt="picture of grass" (load)="onLoad(image3)" #image3 />
+		</div>
+		<div class="carousel-caption">
+			<h3>Third slide label</h3>
+			<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+		</div>
+	</ng-template>
+</ngb-carousel>

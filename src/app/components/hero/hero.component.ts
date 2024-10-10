@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgbCarousel, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -6,8 +6,18 @@ import { NgbCarousel, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
   standalone: true,
   imports: [NgbCarouselModule],
   templateUrl: './hero.component.html',
-  styleUrl: './hero.component.scss'
+  styleUrl: './hero.component.scss',
 })
 export class HeroComponent{
-  images = [89, 70, 18].map((n) => `https://picsum.photos/id/${n}/1800/855/`);
+
+  onLoad(element: HTMLImageElement){
+    if(element.dataset['loaded']) return;
+      const src = element.dataset['src'];
+      if(src){
+        element.src = src;
+        element.dataset['loaded'] = 'true';
+        console.log('hello')
+        return;
+      }
+  }
 }
