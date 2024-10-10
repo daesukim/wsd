@@ -1,0 +1,18 @@
+.hero-arc-decoration {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    bottom: -2px;
+    width: 100vw;
+    height: auto;
+    min-height: 100%;
+    background-color: transparent;
+  }
+  
+.brand-white-arc {
+    background: url("/assets/white-decorative-shape.svg");
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 100%, 0;
+}

@@ -15,18 +15,19 @@
 
 .login{
     width: 120px;
-    border: 1px var(--white) solid;
+    border: 1px #2d7bbb solid;
     border-radius: 30px;
-    font-size: 16px;
+    font-size: 15px;
     text-decoration: none;
-    color: var(--white);
+    color: #2d7bbb;
     text-align: center;
 }
 
 nav{
     justify-content: space-between;
-    border-bottom: 1px #5a6269 solid;
+    box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
     position: sticky;
+    background-color: rgba(255, 255, 255, 0.904);
 }
 
 @media only screen and (max-width: 991px) {
@@ -52,5 +53,5 @@ nav{
 }
 
 .router-link-active{
-    color: white;
+    color: rgb(31, 31, 31);
 }
